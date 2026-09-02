@@ -12,12 +12,15 @@ def cargar_ventas(archivo):
     ]
     return ventas
 
-def calcular_total_tienda(ventas, tienda_id):
-    """Calcula el total de ventas de una tienda."""
+def calcular_total_tienda(ventas, tienda_id, con_iva=True):
+    """Calcula el total de ventas de una tienda (con IVA por defecto)."""
     total = 0
     for venta in ventas:
         if venta["tienda"] == tienda_id:
             total += venta["cantidad"] * venta["precio"]
+    if con_iva:
+        from config import IVA
+        total *= (1 + IVA)
     return total
 
 def resumen_por_producto(ventas):
