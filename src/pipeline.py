@@ -1,3 +1,4 @@
+# src/pipeline.py - Pipeline de ventas de FreshData Corp
 
 def cargar_ventas(archivo):
     """Carga datos de ventas desde un archivo CSV."""
@@ -19,7 +20,18 @@ def calcular_total_tienda(ventas, tienda_id):
             total += venta["cantidad"] * venta["precio"]
     return total
 
-if __name__ == "__main__":
+def resumen_por_producto(ventas):
+    """Genera resumen de ventas agrupado por producto."""
+    resumen = {}
+    for venta in ventas:
+        producto = venta["producto"]
+        ingreso = venta["cantidad"] * venta["precio"]
+        if producto in resumen:
+            resumen[producto] += ingreso
+        else:
+            resumen[producto] = ingreso
+    return resumenif __name__ == "__main__":
+
     ventas = cargar_ventas("ventas_2024_01.csv")
     total = calcular_total_tienda(ventas, "T001")
     print(f"Total tienda T001: ${total:.2f}")
