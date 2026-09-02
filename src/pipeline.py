@@ -20,6 +20,18 @@ def calcular_total_tienda(ventas, tienda_id):
             total += venta["cantidad"] * venta["precio"]
     return total
 
+def resumen_por_producto(ventas):
+    """Genera resumen de ventas agrupado por producto."""
+    resumen = {}
+    for venta in ventas:
+        producto = venta["producto"]
+        ingreso = venta["cantidad"] * venta["precio"]
+        if producto in resumen:
+            resumen[producto] += ingreso
+        else:
+            resumen[producto] = ingreso
+    return resumen
+
 if __name__ == "__main__":
     ventas = cargar_ventas("ventas_2024_01.csv")
     total = calcular_total_tienda(ventas, "T001")
